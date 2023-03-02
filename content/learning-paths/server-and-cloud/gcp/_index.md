@@ -10,6 +10,7 @@ who_is_this_for: This is an introductory topic for software developers new to Ar
 learning_objectives:
     - Deploy Arm virtual machines using the Google Cloud Console
     - Automate Arm virtual machine creation using Terraform
+    - Deploy Arm instances on GCP and providing access via Jump Server
 
 prerequisites:
     - A Google Cloud account
