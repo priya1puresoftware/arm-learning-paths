@@ -17,7 +17,7 @@ Redis, which stands for Remote Dictionary Server, is an open source in-memory da
 We can configure Redis server using [redis.conf](https://redis.io/docs/management/config-file/) file. Alternatively, we can configure Redis server by [passing arguments via command line](https://redis.io/docs/management/config/#passing-arguments-via-the-command-line) when fewer configuration variables need to be set.
 
 ## Single node configuration
-After installing Redis, by default it runs on localhost (`127.0.0.1`) at port `6379`. Hence, `127.0.0.1:6379` becomes unavailable for binding. Thus, we need to set the bind configuration option in the redis.conf file to `0.0.0.0`.
+After installing Redis, by default it runs on localhost (`127.0.0.1`) at port `6379` by default. Hence, port `6379` is unavailable for binding with the public IP of the remote server. Thus, we need to use any other random available port of the remote machine.  
 
 For a single node Redis server, we need to set:
 - `--port` option providing the port number 
@@ -28,7 +28,7 @@ To connect to the remote Redis server, we need to use Redis Client (`redis-cli`)
 - `-p` option providing the port number.  
 
 ## Multi-node configuration
-A Redis multi-node cluster requires 3 primary and 3 replica nodes in minimal configuration to work properly.  
+A Redis multi-node cluster requires 3 master and 3 slave nodes in minimal configuration to work properly.  
 
 We can use 6 different ports of the same host as follows:
 ```console
