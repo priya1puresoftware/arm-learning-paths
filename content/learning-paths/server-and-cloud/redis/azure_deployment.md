@@ -15,7 +15,7 @@ Any computer which has the required tools installed can be used for this section
 You will need [an Azure portal account](https://azure.microsoft.com/en-in/get-started/azure-portal). Create an account if needed.
 
 Following tools are required on the computer you are using. Follow the links to install the required tools.
-* [Azure CLI](/content/install-tools/azure-cli.md)
+* [Azure CLI](/install-tools/azure-cli)
 * [Ansible](https://www.cyberciti.biz/faq/how-to-install-and-configure-latest-version-of-ansible-on-ubuntu-linux/)
 * [Terraform](/install-tools/terraform)
 * [Redis CLI](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
@@ -23,7 +23,7 @@ Following tools are required on the computer you are using. Follow the links to 
 
 ## Deploy Azure Arm based instance via Terraform
 
-Before deploying Azure Arm based instance [Login to Azure CLI](/content/learning-paths/server-and-cloud/azure/terraform.md#azure-authentication) and [Generate key-pair using ssh keygen](/content/learning-paths/server-and-cloud/redis/aws_deployment.md#generate-key-pairpublic-key-private-key-using-ssh-keygen).
+Before deploying Azure Arm based instance [Login to Azure CLI](/learning-paths/server-and-cloud/azure/terraform#azure-authentication) and [Generate key-pair using ssh keygen](/learning-paths/server-and-cloud/redis/aws_deployment#generate-key-pairpublic-key-private-key-using-ssh-keygen).
 
 For Azure Arm based instance deployment, the Terraform configuration is broken into four files: **providers.tf**, **variables.tf**, **main.tf**, and **outputs.tf**.
 
@@ -233,7 +233,7 @@ output "public_ip_address" {
 
 ## Terraform commands
 
-To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/content/learning-paths/server-and-cloud/redis/aws_deployment.md#terraform-commands) to deploy the **main.tf** file.
+To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#terraform-commands) to deploy the **main.tf** file.
 
 ## Install Redis using Ansible
 To run Ansible, we have to create a **.yml** file, which is also known as **Ansible-Playbook**. The following playbook contains a collection of tasks which install Redis on single node manually.
