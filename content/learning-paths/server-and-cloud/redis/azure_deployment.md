@@ -238,7 +238,7 @@ To deploy the instances, we need to initialize Terraform, generate an execution 
 ## Install Redis using Ansible
 To run Ansible, we have to create a **.yml** file, which is also known as **Ansible-Playbook**. The following playbook contains a collection of tasks which install Redis on single node manually.
 
-Here is the complete **deploy_redis.yml** file of Ansible-Playbook
+Here is the complete **deploy_redis.yml** file of Ansible-Playbook:
 ```console
 ---
 - hosts: all
