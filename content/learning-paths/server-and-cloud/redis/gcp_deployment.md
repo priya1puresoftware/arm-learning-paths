@@ -22,7 +22,7 @@ Following tools are required on the computer you are using. Follow the links to 
 
 ## Deploy GCP Arm based instance via terraform
 
-Before deploying GCP Arm based instance [Login to Google Cloud CLI](/learning-paths/server-and-cloud/gcp/terraform#acquire-user-credentials) and [Generate key-pair using ssh keygen](/learning-paths/server-and-cloud/redis/aws_deployment#generate-key-pairpublic-key-private-key-using-ssh-keygen).
+Before deploying GCP Arm based instance [Login to Google Cloud CLI](/learning-paths/server-and-cloud/gcp/terraform#acquire-user-credentials) and [Generate key-pair using ssh keygen](/learning-paths/server-and-cloud/gcp/terraform#generate-key-pairpublic-key-private-key-using-ssh-keygen).
 
 ## Terraform infrastructure
 
