@@ -20,41 +20,9 @@ Following tools are required on the computer you are using. Follow the links to 
 * [Terraform](/install-tools/terraform)
 * [Redis CLI](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
 
-## Generate Access keys (access key ID and secret access key)
-
-The installation of Terraform on your desktop or laptop needs to communicate with AWS. Thus, Terraform needs to be able to authenticate with AWS. For authentication, we need to generate access keys (access key ID and secret access key). These access keys are used by Terraform for making programmatic calls to AWS via the AWS CLI.
-  
-Go to **Security Credentials**
-   
-![image](https://user-images.githubusercontent.com/90673309/218450269-d6efed3a-c395-4e93-8790-7b48d88c89a7.png)
-
-On Your **Security Credentials** page click on **Create access keys** (access key ID and secret access key)
-   
-![image](https://user-images.githubusercontent.com/87687468/190137925-c725359a-cdab-468f-8195-8cce9c1be0ae.png)
-   
-Copy the **Access Key ID** and **Secret Access Key**
-
-![image](https://user-images.githubusercontent.com/87687468/190138349-7cc0007c-def1-48b7-ad1e-4ee5b97f4b90.png)
-
-## Generate key-pair(public key, private key) using ssh keygen
-
-Before using Terraform, first generate the key-pair (public key, private key) using ssh-keygen. Then associate both public and private keys with AWS EC2 instances.
-
-Generate the **key-pair** using the following command:
-
-```console
-ssh-keygen -t rsa -b 2048
-```
-       
-By default, the above command will generate the public as well as private key at location **$HOME/.ssh**. You can override the end destination with a custom path.
-
-Output when a **key-pair** is generated:
-
-![image](https://user-images.githubusercontent.com/90673309/218444335-b136a7b5-15c3-437e-86ce-a01513d16b03.png)
-      
-**Note:** Use the public key aws_key.pub inside the Terraform file to provision/start the instance and private key aws_key to connect to the instance.
-
 ## Deploy AWS Arm based instance via Terraform
+
+Before deploying AWS Arm based instance via Terraform, generate [Access keys](/learning-paths/server-and-cloud/aws/terraform#generate-access-keys-access-key-id-and-secret-access-key) and [key-pair using ssh keygen](/learning-paths/server-and-cloud/aws/terraform#generate-key-pairpublic-key-private-key-using-ssh-keygen).
 
 After generating the public and private keys, we need to create an AWS Arm based instance. Then we will push our public key to the **authorized_keys** folder in **~/.ssh**. We will also create a security group that opens inbound ports **22**(ssh) and **6379**(Redis). Below is a Terraform file named **main.tf** which will do this for us.
 
@@ -119,36 +87,7 @@ Now, use the below Terraform commands to deploy the **main.tf** file.
 
 ### Terraform Commands
 
-#### Initialize Terraform
-
-Run **terraform init** to initialize the Terraform deployment. This command is responsible for downloading all dependencies which are required for the AWS provider.
-
-```console
-terraform init
-```
-
-![image](https://user-images.githubusercontent.com/90673309/218444507-72649677-3ae7-4e9f-942b-b533409802b9.png)
-
-#### Create a Terraform execution plan
-
-Run **terraform plan** to create an execution plan.
-
-```console
-terraform plan
-```
-
-**NOTE:** The **terraform plan** command is optional. You can directly run **terraform apply** command. But it is always better to check the resources about to be created.
-
-#### Apply a Terraform execution plan
-
-Run **terraform apply** to apply the execution plan to your cloud infrastructure. The below command creates all required infrastructure.
-
-```console
-terraform apply
-```      
-
-![image](https://user-images.githubusercontent.com/90673309/218444666-e7e4ef27-2f5f-4d30-bf93-e76ea0e8c123.png)
-
+To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/aws/terraform#terraform-commands) to deploy the main.tf file.
 
 ## Install Redis using Ansible
 Ansible is a software tool that provides simple but powerful automation for cross-platform computer support.
