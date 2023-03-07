@@ -83,7 +83,7 @@ ansible-target1 ansible_connection=ssh ansible_host=${google_compute_instance.vm
 
 ## Terraform commands
 
-To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#terraform-commands) to deploy the **main.tf** file.
+To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/gcp/terraform#terraform-commands) to deploy the **main.tf** file.
 
 ## Install Redis using Ansible
 
