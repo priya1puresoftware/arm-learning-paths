@@ -38,24 +38,20 @@ Here is the complete **deploy_redis.yml** file of Ansible-Playbook
   remote_user: ubuntu
 
   tasks:
-    - name: Update the Machine
-      shell: apt update
-    - name: Install docker dependencies
-      shell: apt install -y ca-certificates curl gnupg lsb-release
+    - name: Update the Machine and install docker dependencies
+      shell: |
+        apt update
+        apt install -y ca-certificates curl gnupg lsb-release
     - name: Create directory
       file:
         path: /etc/apt/keyrings
         state: directory
-    - name: Download docker gpg key
-      shell: curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-      args:
-        warn: false
-    - name: Add docker gpg key
-      shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    - name: Update the apt sources
-      shell: apt update
-    - name: Install docker
-      shell: apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    - name: Download docker gpg key and install docker
+      shell: |
+        curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+        apt update
+        apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
     - name: Start and enable docker service
       service:
         name: docker
@@ -77,11 +73,9 @@ ansible-playbook {your_yml_file} -i {your_inventory_file} --key-file {path_to_pr
 ```
 **NOTE:-** Replace **{your_yml_file}** and **{path_to_private_key}** with respective values.
 
-![image](https://user-images.githubusercontent.com/90673309/218455868-6ab3f027-d36a-46ea-ad0f-d7c25d7a4652.png)
-
 Here is the output after the successful execution of the **ansible-playbook** command.
 
-![image](https://user-images.githubusercontent.com/90673309/218455991-267b7e51-e43a-4257-8808-a04c21041b41.png)
+![ansible-docker](https://user-images.githubusercontent.com/71631645/223415781-fe323bd0-a597-4b7f-87b4-8063cb02613e.jpg)
 
 ## Connecting to Redis server from local machine
 
