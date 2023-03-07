@@ -23,7 +23,7 @@ Following tools are required on the computer you are using. Follow the links to 
 
 ## Deploy Azure Arm based instance via Terraform
 
-Before deploying Azure Arm based instance [Login to Azure CLI](/learning-paths/server-and-cloud/azure/terraform#azure-authentication) and [Generate key-pair using ssh keygen](/learning-paths/server-and-cloud/redis/aws_deployment#generate-key-pairpublic-key-private-key-using-ssh-keygen).
+Before deploying Azure Arm based instance [Login to Azure CLI](/learning-paths/server-and-cloud/azure/terraform#azure-authentication) and [Generate key-pair using ssh keygen](/learning-paths/server-and-cloud/azure/terraform#generate-key-pair-public-key-private-key-using-ssh-keygen).
 
 For Azure Arm based instance deployment, the Terraform configuration is broken into four files: **providers.tf**, **variables.tf**, **main.tf**, and **outputs.tf**.
 
