@@ -107,7 +107,7 @@ resource "aws_key_pair" "deployer" {
 To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#terraform-commands) to deploy the **main.tf** file.
 
 ## Install Redis in a multi-node configuration using Ansible
-To run Ansible, we have to create a **.yml** file, which is also known as **Ansible-Playbook**. The following playbook contains a collection of tasks which install Redis in multi-node configuration (3 primary and 3 replica nodes). 
+To run Ansible, we have to create a **.yml** file, which is also known as **Ansible-Playbook**. The following playbook contains a collection of tasks that install Redis in a multi-node configuration (3 primary and 3 replica nodes). 
 
 Here is the complete **deploy_redis.yml** file of Ansible-Playbook
 ```console
@@ -157,7 +157,7 @@ Here is the complete **deploy_redis.yml** file of Ansible-Playbook
         chdir: "/home/ubuntu/redis"
       become_user: ubuntu
 ```
-**NOTE:-** Since the allocation of primary and replica nodes is random at the time of cluster creation, it is difficult to know which nodes are primary and which nodes are replica. Hence, for the multi-node configuration, we need to turn off **protected-mode**, which is enabled by default, so that we can connect to primary and replica nodes. Also, the **bind address** is by default set to `127.0.0.1` due to which port 6379 becomes unavailable for binding with the public IP of the remote server. Thus, we set the bind configuration option to `0.0.0.0`.
+**NOTE:-** Since the allocation of primary and replica nodes is random at the time of cluster creation, it is difficult to know which nodes are primary and which nodes are replica. Hence, for the multi-node configuration, we need to turn off **protected-mode**, which is enabled by default, so that we can connect to the primary and replica nodes. Also, the **bind address** is by default set to `127.0.0.1` due to which port 6379 becomes unavailable for binding with the public IP of the remote server. Thus, we set the bind configuration option to `0.0.0.0`.
 
 To run a Playbook, we need to use the **ansible-playbook** command.
 ```console
