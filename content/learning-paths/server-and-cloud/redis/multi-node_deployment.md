@@ -104,7 +104,7 @@ resource "aws_key_pair" "deployer" {
 
 ### Terraform Commands
 
-To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#terraform-commands) to deploy the **main.tf** file.
+To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/aws/terraform#terraform-commands) to deploy the **main.tf** file.
 
 ## Install Redis in a multi-node configuration using Ansible
 To run Ansible, we have to create a **.yml** file, which is also known as **Ansible-Playbook**. The following playbook contains a collection of tasks that install Redis in a multi-node configuration (3 primary and 3 replica nodes). 
