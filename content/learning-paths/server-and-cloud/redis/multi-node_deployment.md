@@ -22,7 +22,7 @@ Following tools are required on the computer you are using. Follow the links to 
 
 ## Deploy AWS Arm based instance via Terraform
 
-Before deploying AWS Arm based instance via Terraform, generate [Access keys](/learning-paths/server-and-cloud/redis/aws_deployment#generate-access-keys-access-key-id-and-secret-access-key) and [key-pair using ssh keygen](/learning-paths/server-and-cloud/redis/aws_deployment#generate-key-pairpublic-key-private-key-using-ssh-keygen).
+Before deploying AWS Arm based instance via Terraform, generate [Access keys](/learning-paths/server-and-cloud/aws/terraform#generate-access-keys-access-key-id-and-secret-access-key) and [key-pair using ssh keygen](/learning-paths/server-and-cloud/aws/terraform#generate-key-pairpublic-key-private-key-using-ssh-keygen).
 
 After generating the public and private keys, we will push our public key to the **authorized_keys** folder in **~/.ssh**. We will also create a security group that opens inbound port **22**(ssh). Also every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients, for example **6379**, plus the port obtained by adding 10000 to the data port, so **16379** in the example. Below is a Terraform file named **main.tf** which will do this for us. Here we are creating 6 instances.
 
