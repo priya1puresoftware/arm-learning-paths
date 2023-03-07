@@ -300,4 +300,4 @@ Here is the output after the successful execution of the **ansible-playbook** co
 
 ## Connecting to Redis server from local machine
 
-Follow this [documentation](/content/learning-paths/server-and-cloud/redis/aws_deployment.md#connecting-to-redis-server-from-local-machine) to connect to the remote Redis server from our local machine.
+Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#connecting-to-redis-server-from-local-machine) to connect to the remote Redis server from our local machine.
