@@ -22,7 +22,7 @@ Following tools are required on the computer you are using. Follow the links to 
 
 ## Deploy AWS Arm based instance via Terraform
 
-Before deploying AWS Arm based instance via Terraform, generate [Access keys](/learning-paths/server-and-cloud/redis/aws_deployment#generate-access-keys-access-key-id-and-secret-access-key) and [key-pair using ssh keygen](/learning-paths/server-and-cloud/redis/aws_deployment#generate-key-pairpublic-key-private-key-using-ssh-keygen).
+Before deploying AWS Arm based instance via Terraform, generate [Access keys](/learning-paths/server-and-cloud/aws/terraform#generate-access-keys-access-key-id-and-secret-access-key) and [key-pair using ssh keygen](/learning-paths/server-and-cloud/aws/terraform#generate-key-pairpublic-key-private-key-using-ssh-keygen).
 
 Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#deploy-aws-arm-based-instance-via-terraform) to deploy AWS Arm based instance via Terraform.
 
