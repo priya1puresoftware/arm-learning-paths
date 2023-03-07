@@ -103,18 +103,12 @@ Here is the complete **deploy_redis.yml** file of Ansible-Playbook
   remote_user: ubuntu
 
   tasks:
-    - name: Update the Machine
-      shell: apt update -y
-    - name: Download redis gpg key
-      shell: curl -fsSL "https://packages.redis.io/gpg" | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-      args:
-        warn: false
-    - name: Add redis gpg key
-      shell: echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" |  tee /etc/apt/sources.list.d/redis.list
-    - name: Update the apt sources
-      shell: apt update
-    - name: Install redis
-      shell: apt install -y redis-tools redis
+    - name: Update the Machine and install dependencies
+      shell: |
+             apt-get update -y
+             curl -fsSL "https://packages.redis.io/gpg" | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+             echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" |  tee /etc/apt/sources.list.d/redis.list
+             apt install -y redis-tools redis
     - name: Create directories
       file:
         path: "/home/ubuntu/redis"
@@ -152,7 +146,7 @@ ansible-playbook {your_yml_file} -i {your_inventory_file} --key-file {path_to_pr
 
 Here is the output after the successful execution of the **ansible-playbook** command.
 
-![ansible](https://user-images.githubusercontent.com/71631645/220877481-46f101da-6f84-494a-b38d-e56a4bec88fc.jpg)
+![ansible-aws-final-final](https://user-images.githubusercontent.com/71631645/223410377-af31650e-6c30-4f6b-968a-ac0a2e6b5db2.jpg)
 
 ## Connecting to Redis server from local machine
 
