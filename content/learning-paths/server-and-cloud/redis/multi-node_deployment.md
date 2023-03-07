@@ -187,7 +187,7 @@ Here is the output after the successful execution of the above command.
 
 ## Connecting to Redis cluster from local machine
 
-You can control the Redis cluster with the following command.
+We can control the Redis cluster with the following command:
 ```console
 redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluster nodes
 ```
