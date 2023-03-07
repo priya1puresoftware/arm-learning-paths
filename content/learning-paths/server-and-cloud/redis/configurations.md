@@ -29,7 +29,7 @@ daemonize yes
 appendonly no
 ```
 
-To connect to the remote Redis server, we need to use Redis Client (**redis-cli**) with:
+To connect to the remote Redis server, we need to use Redis Client (`redis-cli`) with:
 - **-h** option providing hostname
 - **-p** option providing the port number.  
 
@@ -59,7 +59,7 @@ daemonize yes
 appendonly yes
 ```
 
-To connect to the remote Redis multi-node cluster, we need to use Redis Client (**redis-cli**) with:
+To connect to the remote Redis multi-node cluster, we need to use Redis Client (`redis-cli`) with:
 - **-c** option to enable cluster mode
 - **-h** option providing hostname
 - **-p** option providing the port number.
