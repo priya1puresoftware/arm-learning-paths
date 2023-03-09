@@ -118,19 +118,12 @@ Here is the complete **deploy_redis.yml** file of Ansible-Playbook
   become_user: root
   remote_user: ubuntu
   tasks:
-
-    - name: Update the Machine
-      shell: apt update
-    - name: Download redis gpg key
-      shell: curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-      args:
-        warn: false
-    - name: Add redis gpg key
-      shell: echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-    - name: Update the apt sources
-      shell: apt update
-    - name: Install redis
-      shell: apt install -y redis-tools redis
+    - name: Update the Machine and install dependencies
+      shell: |
+             apt-get update -y
+             curl -fsSL "https://packages.redis.io/gpg" | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+             echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" |  tee /etc/apt/sources.list.d/redis.list
+             apt install -y redis-tools redis
     - name: Create directories
       file:
         path: "/home/ubuntu/redis"
@@ -165,7 +158,7 @@ ansible-playbook {your_yml_file} -i {your_inventory_file} --key-file {path_to_pr
 ```
 **NOTE:-** Replace **{your_yml_file}**, **{your_inventory_file}** and **{path_to_private_key}** with your values.
 
-![ansible-multi-atsrt](https://user-images.githubusercontent.com/71631645/223043471-ab72be63-94af-49d6-935c-84ca8f04b827.jpg)
+![ansible-multi-final](https://user-images.githubusercontent.com/71631645/223932248-c8d38eec-0023-4c0f-9c94-f404e9588ba6.jpg)
 
 Here is the output after the successful execution of the **ansible-playbook** command.
 
