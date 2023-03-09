@@ -6,14 +6,14 @@ weight: 2
 
 ## Prerequisites
 
-* An [Arm based instance](/learning-paths/server-and-cloud/csp/) from an appropriate cloud service provider running `Ubuntu Linux 20.04`.
+* An [Arm based instance](/learning-paths/server-and-cloud/csp/) from an appropriate cloud service provider running `Ubuntu Linux 22.04`.
 
-This learning path has been tested on AWS and Oracle platforms.
+This learning path has been tested on AWS platform.
 
 
 ## Install necessary software and packages
 
-Launch an Arm-based instance running `Ubuntu 20.04`.
+Launch an Arm-based instance running `Ubuntu 22.04`.
 
 Install `gcc` on your instance following the steps [here](/install-tools/gcc/#native).
 
