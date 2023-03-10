@@ -178,11 +178,11 @@ Here is the output after the successful execution of the above command.
 ![cluster-start](https://user-images.githubusercontent.com/71631645/223050537-3a775d62-fefe-47e0-86c6-7cd0cb5ce542.jpg)
 ![cluster-end](https://user-images.githubusercontent.com/71631645/223050545-83928cf3-b9b4-4496-906e-8be4aac2e26c.jpg)
 
-## Checking the status of the Redis Cluster
+## Status of the Redis Cluster
 
 `cluster info` provides **info** style information about Redis Cluster vital parameters.
 ```console
-redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluter info
+redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluster info
 ```
 **Note:-** Replace **{redis-deployment[n].public_ip}** with the IP of any of the instances created.
 
@@ -193,7 +193,7 @@ redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluter info
 
 The `cluster nodes` command can be sent to any node in the cluster and provides the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
 ```console
-redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluter nodes
+redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluster nodes
 ```
 ![cluster-nodes-final](https://user-images.githubusercontent.com/71631645/224273685-2e196e03-8318-489c-b9d5-cea3810f5820.jpg)
 
