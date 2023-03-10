@@ -195,11 +195,11 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   }
 
   computer_name= "myvm"
-  admin_username= "azureuser"
+  admin_username= "ubuntu"
   disable_password_authentication = true
 
   admin_ssh_key {
-    username= "azureuser"
+    username= "ubuntu"
     public_key = file("/home/ubuntu/.ssh/azure_key.pub")
   }
 
@@ -213,7 +213,7 @@ resource "local_file" "inventory" {
     filename = "inventory.txt"
     content = <<EOF
 [all]
-ansible-target1 ansible_connection=ssh ansible_host=${azurerm_linux_virtual_machine.my_terraform_vm.public_ip_address} ansible_user=azureuser
+ansible-target1 ansible_connection=ssh ansible_host=${azurerm_linux_virtual_machine.my_terraform_vm.public_ip_address} ansible_user=ubuntu
                 EOF
 }
 ```
@@ -236,61 +236,8 @@ output "public_ip_address" {
 To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/azure/terraform#terraform-commands) to deploy the **main.tf** file.
 
 ## Install Redis using Ansible
-To run Ansible, we have to create a **.yml** file, which is also known as **Ansible-Playbook**. The following playbook contains a collection of tasks which install Redis on single node manually.
 
-Here is the complete **deploy_redis.yml** file of Ansible-Playbook:
-```console
----
-- hosts: all
-  become: true
-  become_user: root
-  remote_user: azureuser
-
-  tasks:
-    - name: Update the Machine and install dependencies
-      shell: |
-        apt update -y
-        curl -fsSL "https://packages.redis.io/gpg" | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-        echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" |  tee /etc/apt/sources.list.d/redis.list
-        apt install -y redis-tools redis  
-    - name: Create directories
-      file:
-        path: "/home/azureuser/redis"
-        state: directory
-      become_user: azureuser
-    - name: Create configuration files
-      copy:
-        dest: "/home/azureuser/redis/redis.conf"
-        content: |
-          bind 0.0.0.0
-          port 6379
-          protected-mode yes
-          cluster-enabled no
-          daemonize yes
-          appendonly no
-      become_user: azureuser
-    - name: Stop redis-server
-      shell: service redis-server stop
-    - name: Start redis server with configuration files
-      shell: redis-server redis.conf
-      args:
-        chdir: "/home/azureuser/redis"
-      become_user: azureuser
-    - name: Set Authentication password
-      shell: redis-cli -p 6379 CONFIG SET requirepass "{password}"
-      become_user: azureuser
-```
-**NOTE:-** Replace **{password}** with respective value.
-
-To run a Playbook, we need to use the **ansible-playbook** command.
-```console
-ansible-playbook {your_yml_file} -i {your_inventory_file} --key-file {path_to_private_key}
-```
-**NOTE:-** Replace **{your_yml_file}, {your_inventory_file}** and **{path_to_private_key}** with respective values.
-
-Here is the output after the successful execution of the **ansible-playbook** command.
-
-![ansible-aws-final-final](https://user-images.githubusercontent.com/71631645/223411135-b20a50a9-3bf3-4f1d-9910-b3b8b8c9224c.jpg)
+To install Redis using Ansible follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#install-redis-using-ansible).
 
 ## Connecting to Redis server from local machine
 
