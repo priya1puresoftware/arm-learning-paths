@@ -1,6 +1,6 @@
 ---
 # User change
-title: "Redis deployment configurations"
+title: "About Redis deployment configurations"
 
 weight: 2 # 1 is first, 2 is second, etc.
 
@@ -8,7 +8,7 @@ weight: 2 # 1 is first, 2 is second, etc.
 layout: "learningpathall"
 ---
 
-##  Redis deployment configurations
+##  About Redis deployment configurations
 
 ###  Introduction to Redis
 Redis, which stands for Remote Dictionary Server, is an open source in-memory data structure store used as a database, cache, message broker, and streaming engine. Redis has a variety of data types, including bitmaps, hyperloglogs, geographic indexes, streams, lists, sets, and sorted sets with range queries.
