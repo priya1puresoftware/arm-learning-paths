@@ -200,7 +200,7 @@ CLUSTER INFO
 **cluster_state** is ok if the node is able to receive queries.
 
 
-The `CLUSTER NODES` command can be sent to any node in the cluster and provide the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
+The `CLUSTER NODES` command can be sent to any node in the cluster and provides the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
 ```console
 CLUSTER NODES
 ```
