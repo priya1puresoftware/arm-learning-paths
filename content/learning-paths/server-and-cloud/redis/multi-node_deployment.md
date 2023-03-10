@@ -180,14 +180,6 @@ Here is the output after the successful execution of the above command.
 
 ## Connecting to Redis cluster from local machine
 
-We can control the Redis cluster with the following command:
-```console
-redis-cli -c -h {redis-deployment[n].public_ip} -p 6379 cluster nodes
-```
-**NOTE:-** Replace **{redis-deployment[n].public_ip}** with IP of any of the instances created.
-
-![cluster-nodes](https://user-images.githubusercontent.com/71631645/223085999-c66f7323-da1b-4425-bb03-284b507369e3.jpg)
-
 We can connect to remote Redis cluster from local machine using:
 
 ```console
@@ -196,3 +188,20 @@ redis-cli -c -h {redis-deployment[n].public_ip} -p 6379
 **Note:-** Replace **{redis-deployment[n].public_ip}** with the IP of any of the instances created. The redis-cli will run in interactive mode. We can connect to any of the nodes, the command will get redirected to primary node.
 
 ![redis-cli-final](https://user-images.githubusercontent.com/71631645/223086054-b9ed9bf6-5ec2-4278-9922-8e0a37835686.jpg)
+
+## Checking the status of the Redis Cluster
+
+`CLUSTER INFO` provides **INFO** style information about Redis Cluster vital parameters.
+```console
+CLUSTER INFO
+```
+![cluster-info](https://user-images.githubusercontent.com/71631645/224253073-5c0ec9a5-9d73-4f59-9ac1-46329327e6ad.jpg)
+
+**cluster_state** is ok if the node is able to receive queries.
+
+
+The `CLUSTER NODES` command can be sent to any node in the cluster and provide the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
+```console
+CLUSTER NODES
+```
+![cluster-nodes-final](https://user-images.githubusercontent.com/71631645/224253976-7764213c-4054-466a-bb72-7b740787b5aa.jpg)
