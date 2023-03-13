@@ -113,7 +113,7 @@ Make the changes listed below in `main.tf` to match your account settings.
 
 1. In the `provider` section, update all 3 values to use your preferred AWS region and your AWS access key ID and secret access key.
 
-2. (optional) In the `aws_instance` section, change the ami value to your preferred Linux distribution. The AMI ID for Ubuntu 22.04 on Arm is `ami-0ca2eafa23bc3dd01 ` No change is needed if you want to use Ubuntu AMI. 
+2. (optional) In the `aws_instance` section, change the ami value to your preferred Linux distribution. The AMI ID for Ubuntu 22.04 on Arm is `ami-0ca2eafa23bc3dd01`. No change is needed if you want to use Ubuntu AMI. 
 
 {{% notice Note %}}
 The instance type is t4g.small. This an an Arm-based instance and requires an Arm Linux distribution.
