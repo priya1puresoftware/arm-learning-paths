@@ -326,13 +326,12 @@ Answer `yes` to the prompt to confirm you want to create AWS resources.
 The public IP address will be different, but the output should be similar to:
 
 ```console
-Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-Master_public_IP = [
-  "3.135.226.118",
-]
+public_ip_address = "20.110.186.231"
+resource_group_name = "rg-tight-dove"
 ```
 
 ## Configure Redis through Ansible
@@ -401,8 +400,8 @@ The output should be similar to:
 PLAY [all] *****************************************************************************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-The authenticity of host 'ec2-3-135-226-118.us-east-2.compute.amazonaws.com (172.31.30.40)' can't be established.
-ED25519 key fingerprint is SHA256:uWZgVeACoIxRDQ9TrqbpnjUz14x57jTca6iASH3gU7M.
+The authenticity of host '20.110.186.231 (20.110.186.231)' can't be established.
+ED25519 key fingerprint is SHA256:LHk4u86Sw5Uw7WPPvKaz7qp2mKyxn+X7Gxz1DogTL+4.
 This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 ok: [ansible-target1]
@@ -427,6 +426,7 @@ changed: [ansible-target1]
 
 PLAY RECAP *****************************************************************************************************************************************************
 ansible-target1            : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
 ```
 
 ## Connecting to the Redis server from local machine
@@ -442,25 +442,25 @@ redis-cli -h <public-IP-address> -p 6379
 ```
 The output will be:
 ```console
-ubuntu@ip-172-31-38-39:~$ redis-cli -h 172.31.30.40 -p 6379
-172.31.30.40:6379> 
+ubuntu@ip-172-31-38-39:~$ redis-cli -h 20.110.186.231 -p 6379
+20.110.186.231:6379> 
 ```
 3. Authorize Redis with the password set by us in playbook.yaml file
 ```console
-172.31.30.40:6379> ping
+20.110.186.231:6379> ping
 (error) NOAUTH Authentication required.
-172.31.30.40:6379> AUTH 123456789
+20.110.186.231:6379> AUTH 123456789
 OK
-172.31.30.40:6379> ping
+20.110.186.231:6379> ping
 PONG
 ```
 4. Try out commands in the redis-cli
 ```console
-172.31.30.40:6379> set name test
+20.110.186.231:6379> set name test
 OK
-172.31.30.40:6379> get name
+20.110.186.231:6379> get name
 "test"
-172.31.30.40:6379>
+20.110.186.231:6379>
 ```
 You have successfully installed Redis on an Azure instance.
 
