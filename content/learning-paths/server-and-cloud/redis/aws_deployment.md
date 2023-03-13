@@ -97,7 +97,7 @@ output "Master_public_IP" {
 
 resource "local_file" "inventory" {
     depends_on=[aws_instance.redis-deployment]
-    filename = "inventory.txt"
+    filename = "(your_current_directory)/hosts"
     content = <<EOF
 [all]
 ansible-target1 ansible_connection=ssh ansible_host=${aws_instance.redis-deployment.public_dns} ansible_user=ubuntu
@@ -198,6 +198,7 @@ Master_public_IP = [
   "3.135.226.118",
 ]
 ```
+
 ## Configure Redis through Ansible
 Install the Redis and the required dependencies. 
 
@@ -244,7 +245,7 @@ Using a text editor, save the code below to in a file called `playbook.yaml`. Th
       shell: redis-cli -p 6379 CONFIG SET requirepass "{password}"
       become_user: ubuntu
 ```
-**NOTE:-** Replace **{password}** with respective value.
+Replace `{password}` with your value.
 
 ### Ansible Commands
 
