@@ -14,37 +14,11 @@ You can deploy Redis on AWS Graviton processors using Terraform and Ansible.
 
 In this topic, you will deploy Redis on a Docker container, and in the next topic you will deploy Redis in a multi-node configuration. 
 
-If you are new to Terraform, you should look at [Automate AWS EC2 instance creation using Terraform](/learning-paths/server-and-cloud/aws/terraform/) before starting this Learning Path.
-
 ## Before you begin
 
-You should have the prerequisite tools installed before starting the Learning Path. 
+You should have the prerequisite tools installed from the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment)
 
-Any computer which has the required tools installed can be used for this section. The computer can be your desktop or laptop computer or a virtual machine with the required tools. 
-
-You will need a cloud node or physical node with [Docker](/install-tools/docker/docker-engine) installed.
-
-Before you begin you will also need:
-- An AWS access key ID and secret access key. 
-- An SSH key pair
-
-The instructions to create the keys are below.
-
-### Generate AWS access keys 
-
-Terraform requires AWS authentication to create AWS resources. You can generate access keys (access key ID and secret access key) to perform authentication. Terraform uses the access keys to make calls to AWS using the AWS CLI. 
-
-To generate an access key and secret access key, follow the [steps from the Terraform Learning Path](/learning-paths/server-and-cloud/aws/terraform#generate-access-keys-access-key-id-and-secret-access-key).
-
-### Generate an SSH key-pair
-
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access: 
-
-```console
-ssh-keygen -f aws_key -t rsa -b 2048 -P ""
-```
-
-You should now have your AWS access keys and your SSH keys in the current directory.
+Use the same AWS access key ID and secret access key and the same SSH key pair.
 
 ## Create an AWS EC2 instance using Terraform
 
