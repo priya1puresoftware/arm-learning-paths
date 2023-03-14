@@ -38,13 +38,13 @@ For authentication, follow the [steps from the Terraform Learning Path](/learnin
 
 ### Generate an SSH key-pair
 
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access: 
+Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for Azure access: 
 
 ```console
-ssh-keygen -f aws_key -t rsa -b 2048 -P ""
+ssh-keygen -f azure_key -t rsa -b 2048 -P ""
 ```
 
-You should now have your AWS access keys and your SSH keys in the current directory.
+You should now have your SSH keys in the current directory.
 
 ## Create an Azure instance using Terraform
 For Azure Arm based instance deployment, the Terraform configuration is broken into four files: `providers.tf`, `variables.tf`, `main.tf`, and `outputs.tf`.
@@ -243,7 +243,7 @@ ansible-target1 ansible_connection=ssh ansible_host=${azurerm_linux_virtual_mach
 ```
 Make the changes listed below in `main.tf` to match your account settings.
 
-1. In the `admin_ssh_key` section, change the `public_key` value to match your SSH key. Copy and paste the contents of your aws_key.pub file to the `public_key` string. Make sure the string is a single line in the text file.
+1. In the `admin_ssh_key` section, change the `public_key` value to match your SSH key. Copy and paste the contents of your azure_key.pub file to the `public_key` string. Make sure the string is a single line in the text file.
 
 2. in the `local_file` section, change the `filename` to be the path to your current directory.
 
@@ -268,7 +268,7 @@ Use Terraform to deploy the `main.tf` file.
 
 ### Initialize Terraform
 
-Run `terraform init` to initialize the Terraform deployment. This command downloads the dependencies required for AWS.
+Run `terraform init` to initialize the Terraform deployment. This command downloads the dependencies required for Azure.
 
 ```console
 terraform init
@@ -280,17 +280,14 @@ The output should be similar to:
 Initializing the backend...
 
 Initializing provider plugins...
-- Finding latest version of hashicorp/local...
-- Finding latest version of hashicorp/aws...
-- Installing hashicorp/local v2.4.0...
-- Installed hashicorp/local v2.4.0 (signed by HashiCorp)
-- Installing hashicorp/aws v4.58.0...
-- Installed hashicorp/aws v4.58.0 (signed by HashiCorp)
-
-Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
-you run "terraform init" in the future.
+- Reusing previous version of hashicorp/local from the dependency lock file
+- Reusing previous version of hashicorp/tls from the dependency lock file
+- Reusing previous version of hashicorp/azurerm from the dependency lock file
+- Reusing previous version of hashicorp/random from the dependency lock file
+- Using previously-installed hashicorp/local v2.4.0
+- Using previously-installed hashicorp/tls v4.0.4
+- Using previously-installed hashicorp/azurerm v2.99.0
+- Using previously-installed hashicorp/random v3.4.3
 
 Terraform has been successfully initialized!
 
@@ -315,13 +312,13 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all AWS resources: 
+Run `terraform apply` to apply the execution plan and create all Azure resources: 
 
 ```console
 terraform apply
 ```      
 
-Answer `yes` to the prompt to confirm you want to create AWS resources. 
+Answer `yes` to the prompt to confirm you want to create Azure resources. 
 
 The public IP address will be different, but the output should be similar to:
 
@@ -387,7 +384,7 @@ Replace `{password}` with your value.
 Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
 
 ```console
-ansible-playbook playbook.yaml -i hosts --key-file aws_key
+ansible-playbook playbook.yaml -i hosts --key-file azure_key
 ```
 
 Answer `yes` when prompted for the SSH connection. 
