@@ -14,7 +14,7 @@ You can deploy Redis in a multi-node configuration using Terraform and Ansible. 
 
 ## Before you begin
 
-You should have the prerequisite tools installed from the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment)
+You should have the prerequisite tools installed from the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment).
 
 Use the same AWS access key ID and secret access key and the same SSH key pair.
 
