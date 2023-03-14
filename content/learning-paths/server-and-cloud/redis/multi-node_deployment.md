@@ -8,45 +8,17 @@ weight: 7 # 1 is first, 2 is second, etc.
 layout: "learningpathall"
 ---
 
-##  Install Redis on a single AWS Arm based instance 
+##  Install Redis in a multi-node configuration 
 
-You can deploy Redis on AWS Graviton processors using Terraform and Ansible. 
-
-In this topic, you will deploy Redis on a single AWS EC2 instance, and in the next topic you will deploy Redis on a single Azure instance. 
-
-If you are new to Terraform, you should look at [Automate AWS EC2 instance creation using Terraform](/learning-paths/server-and-cloud/aws/terraform/) before starting this Learning Path.
+You can deploy Redis in a multi-node configuration using Terraform and Ansible. You will create three primary nodes and three replica nodes.
 
 ## Before you begin
 
-You should have the prerequisite tools installed before starting the Learning Path. 
+You should have the prerequisite tools installed from the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment)
 
-Any computer which has the required tools installed can be used for this section. The computer can be your desktop or laptop computer or a virtual machine with the required tools. 
+Use the same AWS access key ID and secret access key and the same SSH key pair.
 
-You will need an [AWS account](https://portal.aws.amazon.com/billing/signup?nc2=h_ct&src=default&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start) to complete this Learning Path. Create an account if you don't have one.
-
-Before you begin you will also need:
-- An AWS access key ID and secret access key. 
-- An SSH key pair
-
-The instructions to create the keys are below.
-
-### Generate AWS access keys 
-
-Terraform requires AWS authentication to create AWS resources. You can generate access keys (access key ID and secret access key) to perform authentication. Terraform uses the access keys to make calls to AWS using the AWS CLI. 
-
-To generate an access key and secret access key, follow the [steps from the Terraform Learning Path](/learning-paths/server-and-cloud/aws/terraform#generate-access-keys-access-key-id-and-secret-access-key).
-
-### Generate an SSH key-pair
-
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access: 
-
-```console
-ssh-keygen -f aws_key -t rsa -b 2048 -P ""
-```
-
-You should now have your AWS access keys and your SSH keys in the current directory.
-
-## Create an AWS EC2 instance using Terraform
+## Create AWS EC2 instances using Terraform
 
 Using a text editor, save the code below to in a file called `main.tf`. We will create a security group that opens inbound port `22`(ssh). Also every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients, for example `6379` plus the port obtained by adding 10000 to the data port, so `16379` in the example.
 
@@ -470,11 +442,11 @@ apt install redis-tools
 ```
 2. Connect to redis-server through redis-cli.
 ```console
-redis-cli -h <public-IP-address> -p 6379
+redis-cli -c -h <public-IP-address> -p 6379
 ```
 The output will be:
 ```console
-ubuntu@ip-172-31-38-39:~/redis$ redis-cli -c -h ec2-18-117-150-63.us-east-2.compute.amazonaws.com -p 6379
+ubuntu@ip-172-31-38-39:~$ redis-cli -c -h ec2-18-117-150-63.us-east-2.compute.amazonaws.com -p 6379
 ec2-18-117-150-63.us-east-2.compute.amazonaws.com:6379>
 ```
 3. Try out commands in the redis-cli              
