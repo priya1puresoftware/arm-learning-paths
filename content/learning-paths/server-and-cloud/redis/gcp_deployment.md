@@ -14,7 +14,7 @@ You can deploy Redis on Google Cloud using Terraform and Ansible.
 
 In this topic, you will deploy Redis on a single Google Cloud instance, and in the next topic you will deploy Redis on a Docker container. 
 
-If you are new to Terraform, you should look at [Automate AWS EC2 instance creation using Terraform](/learning-paths/server-and-cloud/gcp/terraform/) before starting this Learning Path.
+If you are new to Terraform, you should look at [Automate GCP instance creation using Terraform](/learning-paths/server-and-cloud/gcp/terraform/) before starting this Learning Path.
 
 ## Before you begin
 
@@ -36,15 +36,15 @@ To obtain user access credentials, follow this [documentation](/learning-paths/s
 
 ### Generate an SSH key-pair
 
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access: 
+Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for Google Cloud access: 
 
 ```console
 ssh-keygen -f gcp_key -t rsa -b 2048 -P ""
 ```
 
-You should now have your AWS access keys and your SSH keys in the current directory.
+You should now have your SSH keys in the current directory.
 
-## Create an AWS EC2 instance using Terraform
+## Create a GCP instance using Terraform
 
 Using a text editor, save the code below to in a file called `main.tf`
 
@@ -120,7 +120,7 @@ Use Terraform to deploy the `main.tf` file.
 
 ### Initialize Terraform
 
-Run `terraform init` to initialize the Terraform deployment. This command downloads the dependencies required for AWS.
+Run `terraform init` to initialize the Terraform deployment. This command downloads the dependencies required for Google Cloud.
 
 ```console
 terraform init
@@ -132,12 +132,12 @@ The output should be similar to:
 Initializing the backend...
 
 Initializing provider plugins...
+- Finding latest version of hashicorp/google...
 - Finding latest version of hashicorp/local...
-- Finding latest version of hashicorp/aws...
+- Installing hashicorp/google v4.57.0...
+- Installed hashicorp/google v4.57.0 (signed by HashiCorp)
 - Installing hashicorp/local v2.4.0...
 - Installed hashicorp/local v2.4.0 (signed by HashiCorp)
-- Installing hashicorp/aws v4.58.0...
-- Installed hashicorp/aws v4.58.0 (signed by HashiCorp)
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
 selections it made above. Include this file in your version control repository
@@ -153,6 +153,7 @@ should now work.
 If you ever set or change modules or backend configuration for Terraform,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
+
 ```
 
 ### Create a Terraform execution plan
@@ -167,13 +168,13 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all AWS resources: 
+Run `terraform apply` to apply the execution plan and create all GCP resources: 
 
 ```console
 terraform apply
 ```      
 
-Answer `yes` to the prompt to confirm you want to create AWS resources. 
+Answer `yes` to the prompt to confirm you want to create GCP resources. 
 
 The public IP address will be different, but the output should be similar to:
 
@@ -240,7 +241,7 @@ Replace `{password}` with your value.
 Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
 
 ```console
-ansible-playbook playbook.yaml -i hosts --key-file aws_key
+ansible-playbook playbook.yaml -i hosts --key-file gcp_key
 ```
 
 Answer `yes` when prompted for the SSH connection. 
