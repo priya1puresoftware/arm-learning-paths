@@ -8,25 +8,47 @@ weight: 5 # 1 is first, 2 is second, etc.
 layout: "learningpathall"
 ---
 
+##  Install Redis on a single GCP Arm based instance 
+
+You can deploy Redis on Google Cloud using Terraform and Ansible. 
+
+In this topic, you will deploy Redis on a single Google Cloud instance, and in the next topic you will deploy Redis on a Docker container. 
+
+If you are new to Terraform, you should look at [Automate AWS EC2 instance creation using Terraform](/learning-paths/server-and-cloud/gcp/terraform/) before starting this Learning Path.
+
 ## Before you begin
 
-Any computer which has the required tools installed can be used for this section. 
+You should have the prerequisite tools installed before starting the Learning Path. 
 
-You will need a [Google cloud account](https://console.cloud.google.com/?hl=en-au). Create an account if needed.
+Any computer which has the required tools installed can be used for this section. The computer can be your desktop or laptop computer or a virtual machine with the required tools. 
 
-Following tools are required on the computer you are using. Follow the links to install the required tools.
-* [Google Cloud CLI](/install-tools/gcloud)
-* [Ansible](https://www.cyberciti.biz/faq/how-to-install-and-configure-latest-version-of-ansible-on-ubuntu-linux/)
-* [Terraform](/install-tools/terraform)
-* [Redis CLI](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
+You will need an [Google cloud account](https://console.cloud.google.com/?hl=en-au) to complete this Learning Path. Create an account if you don't have one.
 
-## Deploy GCP Arm based instance via terraform
+Before you begin you will also need:
+- Login to Google Cloud CLI 
+- An SSH key pair
 
-Before deploying GCP Arm based instance [Login to Google Cloud CLI](/learning-paths/server-and-cloud/gcp/terraform#acquire-user-credentials) and [Generate key-pair using ssh keygen](/learning-paths/server-and-cloud/gcp/terraform#generate-key-pairpublic-key-private-key-using-ssh-keygen).
+The instructions to create the keys are below.
 
-## Terraform infrastructure
+### Acquire user credentials
 
-Add resources required to create a virtual machine in **main.tf** file.
+To obtain user access credentials, follow this [documentation](/learning-paths/server-and-cloud/gcp/terraform#acquire-user-credentials).
+
+### Generate an SSH key-pair
+
+Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access: 
+
+```console
+ssh-keygen -f gcp_key -t rsa -b 2048 -P ""
+```
+
+You should now have your AWS access keys and your SSH keys in the current directory.
+
+## Create an AWS EC2 instance using Terraform
+
+Using a text editor, save the code below to in a file called `main.tf`
+
+Scroll down to see the information you need to change in `main.tf`
 ```
 provider "google" {
   project = "{project_id}"
@@ -35,7 +57,7 @@ provider "google" {
 }
 
 resource "google_compute_project_metadata_item" "ssh-keys" {
-  key   = "ssh-keys"
+  key   = "gcp_key"
   value = "ubuntu:${file("{public_key_location}")}"
 }
 
@@ -69,26 +91,237 @@ resource "google_compute_instance" "vm_instance" {
     }
   }
 }
+output "Master_public_IP" {
+  value = [google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip]
+}
 
 resource "local_file" "inventory" {
     depends_on=[google_compute_instance.vm_instance]
-    filename = "inventory.txt"
+    filename = "(your_current_directory)/hosts"
     content = <<EOF
 [all]
 ansible-target1 ansible_connection=ssh ansible_host=${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip} ansible_user=ubuntu
                 EOF
 }
 ```
-**NOTE:-** Replace **{project_id}** and **{public_key_location}** with respective values.
+Make the changes listed below in `main.tf` to match your account settings.
 
-## Terraform commands
+1. In the `provider` and `google_compute_firewall` sections, update the `project_id` with your value.
 
-To deploy the instances, we need to initialize Terraform, generate an execution plan and apply the execution plan to our cloud infrastructure. Follow this [documentation](/learning-paths/server-and-cloud/gcp/terraform#terraform-commands) to deploy the **main.tf** file.
+2. In the `google_compute_project_metadata_item` section, change the `public_key_location` value to match your SSH key.
 
-## Install Redis using Ansible
+3. In the `local_file` section, change the `filename` to be the path to your current directory.
 
-To install Redis using Ansible follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#install-redis-using-ansible).
+The hosts file is automatically generated and does not need to be changed, change the path to the location of the hosts file.
 
-## Connecting to Redis server from local machine
+## Terraform Commands
 
-Follow this [documentation](/learning-paths/server-and-cloud/redis/aws_deployment#connecting-to-redis-server-from-local-machine) to connect to the remote Redis server from our local machine.
+Use Terraform to deploy the `main.tf` file.
+
+### Initialize Terraform
+
+Run `terraform init` to initialize the Terraform deployment. This command downloads the dependencies required for AWS.
+
+```console
+terraform init
+```
+    
+The output should be similar to:
+
+```console
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding latest version of hashicorp/local...
+- Finding latest version of hashicorp/aws...
+- Installing hashicorp/local v2.4.0...
+- Installed hashicorp/local v2.4.0 (signed by HashiCorp)
+- Installing hashicorp/aws v4.58.0...
+- Installed hashicorp/aws v4.58.0 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+```
+
+### Create a Terraform execution plan
+
+Run `terraform plan` to create an execution plan.
+
+```console
+terraform plan
+```
+
+A long output of resources to be created will be printed. 
+
+### Apply a Terraform execution plan
+
+Run `terraform apply` to apply the execution plan and create all AWS resources: 
+
+```console
+terraform apply
+```      
+
+Answer `yes` to the prompt to confirm you want to create AWS resources. 
+
+The public IP address will be different, but the output should be similar to:
+
+```console
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+Master_public_IP = [
+  "34.68.176.131",
+]
+```
+
+## Configure Redis through Ansible
+Install the Redis and the required dependencies. 
+
+Using a text editor, save the code below to in a file called `playbook.yaml`. This is the YAML file for the Ansible playbook. 
+
+```console
+---
+- hosts: all
+  become: true
+  become_user: root
+  remote_user: ubuntu
+
+  tasks:
+    - name: Update the Machine and install dependencies
+      shell: |
+             apt-get update -y
+             curl -fsSL "https://packages.redis.io/gpg" | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+             echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" |  tee /etc/apt/sources.list.d/redis.list
+             apt install -y redis-tools redis
+    - name: Create directories
+      file:
+        path: "/home/ubuntu/redis"
+        state: directory
+      become_user: ubuntu
+    - name: Create configuration files
+      copy:
+        dest: "/home/ubuntu/redis/redis.conf"
+        content: |
+          bind 0.0.0.0
+          port 6379
+          protected-mode yes
+          cluster-enabled no
+          daemonize yes
+          appendonly no
+      become_user: ubuntu
+    - name: Stop redis-server
+      shell: service redis-server stop
+    - name: Start redis server with configuration files
+      shell: redis-server redis.conf
+      args:
+        chdir: "/home/ubuntu/redis"
+      become_user: ubuntu
+    - name: Set Authentication password
+      shell: redis-cli -p 6379 CONFIG SET requirepass "{password}"
+      become_user: ubuntu
+```
+Replace `{password}` with your value.
+
+### Ansible Commands
+
+Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
+
+```console
+ansible-playbook playbook.yaml -i hosts --key-file aws_key
+```
+
+Answer `yes` when prompted for the SSH connection. 
+
+Deployment may take a few minutes. 
+
+The output should be similar to:
+
+```console
+PLAY [all] *****************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************
+The authenticity of host '34.68.176.131 (34.68.176.131)' can't be established.
+ED25519 key fingerprint is SHA256:uWZgVeACoIxRDQ9TrqbpnjUz14x57jTca6iASH3gU7M.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+ok: [ansible-target1]
+
+TASK [Update the Machine and install dependencies] *************************************************************************************************************
+changed: [ansible-target1]
+
+TASK [Create directories] **************************************************************************************************************************************
+changed: [ansible-target1]
+
+TASK [Create configuration files] ******************************************************************************************************************************
+changed: [ansible-target1]
+
+TASK [Stop redis-server] ***************************************************************************************************************************************
+changed: [ansible-target1]
+
+TASK [Start redis server with configuration files] *************************************************************************************************************
+changed: [ansible-target1]
+
+TASK [Set Authentication password] *****************************************************************************************************************************
+changed: [ansible-target1]
+
+PLAY RECAP *****************************************************************************************************************************************************
+ansible-target1            : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+## Connecting to the Redis server from local machine
+
+Execute the steps below connect to remote Redis server from local machine.
+1. We need to install redis-tools to interact with redis-server.
+```console
+apt install redis-tools
+```
+2. Connect to redis-server through redis-cli.
+```console
+redis-cli -h <public-IP-address> -p 6379
+```
+The output will be:
+```console
+ubuntu@ip-172-31-38-39:~$ redis-cli -h 34.68.176.131 -p 6379
+34.68.176.131:6379> 
+```
+3. Authorize Redis with the password set by us in playbook.yaml file
+```console
+34.68.176.131:6379> ping
+(error) NOAUTH Authentication required.
+34.68.176.131:6379> AUTH 123456789
+OK
+34.68.176.131:6379> ping
+PONG
+```
+4. Try out commands in the redis-cli
+```console
+34.68.176.131:6379> set name test
+OK
+34.68.176.131:6379> get name
+"test"
+34.68.176.131:6379>
+```
+You have successfully installed Redis on a Google Cloud instance.
+
+### Clean up resources
+
+Run `terraform destroy` to delete all resources created.
+
+```console
+terraform destroy
+```
+
+Continue the Learning Path to deploy Redis on a Docker container.
