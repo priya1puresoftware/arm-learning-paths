@@ -38,7 +38,7 @@ For authentication, follow the [steps from the Terraform Learning Path](/learnin
 
 ### Generate an SSH key-pair
 
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for Azure access: 
+Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for Azure access. 
 
 ```console
 ssh-keygen -f azure_key -t rsa -b 2048 -P ""
@@ -49,7 +49,7 @@ You should now have your SSH keys in the current directory.
 ## Create an Azure instance using Terraform
 For Azure Arm based instance deployment, the Terraform configuration is broken into four files: `providers.tf`, `variables.tf`, `main.tf`, and `outputs.tf`.
 
-Add the following code in `providers.tf` file to configure Terraform to communicate with Azure:
+Add the following code in `providers.tf` file to configure Terraform to communicate with Azure.
 
 ```console
 terraform {
@@ -90,9 +90,9 @@ variable "resource_group_name_prefix" {
 }
 ```
 
-Add the resources required to create a virtual machine in `main.tf`
+Add the resources required to create a virtual machine in `main.tf`.
 
-Scroll down to see the information you need to change in `main.tf`
+Scroll down to see the information you need to change in `main.tf`.
 
 ```console
 resource "random_pet" "rg_name" {
@@ -250,7 +250,7 @@ Make the changes listed below in `main.tf` to match your account settings.
 The hosts file is automatically generated and does not need to be changed, change the path to the location of the hosts file.
 
 
-Add the below code in `outputs.tf` to get Resource group name and Public IP:
+Add the below code in `outputs.tf` to get Resource group name and Public IP.
 
 ```console
 output "resource_group_name" {
@@ -312,7 +312,7 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all Azure resources: 
+Run `terraform apply` to apply the execution plan and create all Azure resources. 
 
 ```console
 terraform apply
@@ -381,7 +381,7 @@ Replace `{password}` with your value.
 
 ### Ansible Commands
 
-Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
+Substitute your private key name, and run the playbook using the  `ansible-playbook` command.
 
 ```console
 ansible-playbook playbook.yaml -i hosts --key-file azure_key
@@ -442,7 +442,7 @@ The output will be:
 ubuntu@ip-172-31-38-39:~$ redis-cli -h 20.110.186.231 -p 6379
 20.110.186.231:6379> 
 ```
-3. Authorize Redis with the password set by us in playbook.yaml file
+3. Authorize Redis with the password set by us in playbook.yaml file.
 ```console
 20.110.186.231:6379> ping
 (error) NOAUTH Authentication required.
@@ -451,7 +451,7 @@ OK
 20.110.186.231:6379> ping
 PONG
 ```
-4. Try out commands in the redis-cli
+4. Try out commands in the redis-cli.
 ```console
 20.110.186.231:6379> set name test
 OK
