@@ -10,7 +10,7 @@ layout: "learningpathall"
 
 ##  Install Redis on a single AWS Arm based instance 
 
-You can deploy Redis on AWS Graviton processors using Terraform and Ansible. 
+You can deploy Redis on a Docker container using Terraform and Ansible. 
 
 In this topic, you will deploy Redis on a Docker container, and in the next topic you will deploy Redis in a multi-node configuration. 
 
@@ -22,83 +22,7 @@ Use the same AWS access key ID and secret access key and the same SSH key pair.
 
 ## Create an AWS EC2 instance using Terraform
 
-Using a text editor, save the code below to in a file called `main.tf`
-
-Scroll down to see the information you need to change in `main.tf`
-
-```console
-provider "aws" {
-  region = "us-east-2"
-  access_key  = "AXXXXXXXXXXXXXXXXXXX"
-  secret_key   = "AAXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-}
-resource "aws_instance" "redis-deployment" {
-  ami = "ami-0ca2eafa23bc3dd01"
-  instance_type = "t4g.small"
-  key_name= "aws_key"
-  vpc_security_group_ids = [aws_security_group.main.id]
-}
-
-resource "aws_security_group" "main" {
-  name        = "main"
-  description = "Allow TLS inbound traffic"
-
-  ingress {
-    description      = "Open redis connection port"
-    from_port        = 6379
-    to_port          = 6379
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  ingress {
-    description      = "Allow ssh to instance"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-}
-
-output "Master_public_IP" {
-  value = [aws_instance.redis-deployment.public_ip]
-}
-
-resource "local_file" "inventory" {
-    depends_on=[aws_instance.redis-deployment]
-    filename = "(your_current_directory)/hosts"
-    content = <<EOF
-[all]
-ansible-target1 ansible_connection=ssh ansible_host=${aws_instance.redis-deployment.public_dns} ansible_user=ubuntu
-                EOF
-}
-
-resource "aws_key_pair" "deployer" {
-        key_name   = "aws_key"
-        public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUZXm6T6JTQBuxw7aFaH6gmxDnjSOnHbrI59nf+YCHPqIHMlGaxWw0/xlaJiJynjOt67Zjeu1wNPifh2tzdN3UUD7eUFSGcLQaCFBDorDzfZpz4wLDguRuOngnXw+2Z3Iihy2rCH+5CIP2nCBZ+LuZuZ0oUd9rbGy6pb2gLmF89GYzs2RGG+bFaRR/3n3zR5ehgCYzJjFGzI8HrvyBlFFDgLqvI2KwcHwU2iHjjhAt54XzJ1oqevRGBiET/8RVsLNu+6UCHW6HE9r+T5yQZH50nYkSl/QKlxBj0tGHXAahhOBpk0ukwUlfbGcK6SVXmqtZaOuMNlNvssbocdg1KwOH ubuntu@ip-172-31-XXXX-XXXX"
-}
-```
-Make the changes listed below in `main.tf` to match your account settings.
-
-1. In the `provider` section, update all 3 values to use your preferred AWS region and your AWS access key ID and secret access key.
-
-2. (optional) In the `aws_instance` section, change the ami value to your preferred Linux distribution. The AMI ID for Ubuntu 22.04 on Arm is `ami-0ca2eafa23bc3dd01`. No change is needed if you want to use Ubuntu AMI. 
-
-{{% notice Note %}}
-The instance type is t4g.small. This an an Arm-based instance and requires an Arm Linux distribution.
-{{% /notice %}}
-
-3. In the `aws_key_pair` section, change the `public_key` value to match your SSH key. Copy and paste the contents of your aws_key.pub file to the `public_key` string. Make sure the string is a single line in the text file.
-
-4. in the `local_file` section, change the `filename` to be the path to your current directory.
-
-The hosts file is automatically generated and does not need to be changed, change the path to the location of the hosts file.
-
+You can use the same `main.tf` file used in the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment).
 
 ## Terraform Commands
 
@@ -209,7 +133,7 @@ Using a text editor, save the code below to in a file called `playbook.yaml`. Th
     - name: Set Authentication password
       shell: docker exec -it redis-container redis-cli CONFIG SET requirepass "{password}"
 ```
-Replace {password} with your value.
+Replace `{password}` with your value.
 
 To access the Redis server running inside the Docker container on port **6379**, we need to expose it to any available port on the machine using **-p {port_no_of_machine}:6379** argument. We need to replace **{port_no_of_machine}** with its respective value. In our example, we have used port number **6000**.
 
@@ -261,7 +185,7 @@ ansible-target1            : ok=7    changed=6    unreachable=0    failed=0    s
 
 ## Connecting to the Redis server from local machine
 
-Execute the steps below connect to remote Redis server from local machine.
+Execute the steps below to connect to the remote Redis server from your local machine.
 1. We need to install redis-tools to interact with redis-server.
 ```console
 apt install redis-tools
@@ -302,4 +226,4 @@ Run `terraform destroy` to delete all resources created.
 terraform destroy
 ```
 
-Continue the Learning Path to deploy Redis on a single Azure instance.
+Continue the Learning Path to deploy Redis in a multi-node configuration. 
