@@ -22,7 +22,7 @@ You should have the prerequisite tools installed before starting the Learning Pa
 
 Any computer which has the required tools installed can be used for this section. The computer can be your desktop or laptop computer or a virtual machine with the required tools. 
 
-You will need an [Google cloud account](https://console.cloud.google.com/?hl=en-au) to complete this Learning Path. Create an account if you don't have one.
+You will need an [Google Cloud account](https://console.cloud.google.com/?hl=en-au) to complete this Learning Path. Create an account if you don't have one.
 
 Before you begin you will also need:
 - Login to Google Cloud CLI 
