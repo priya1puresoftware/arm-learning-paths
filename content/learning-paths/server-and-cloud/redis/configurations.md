@@ -31,7 +31,7 @@ appendonly no
 
 To connect to the remote Redis server, we need to use Redis Client (`redis-cli`) with:
 - **-h** option providing hostname
-- **-p** option providing the port number.  
+- **-p** option providing the port number  
 
 ### Multi-node configuration
 A Redis multi-node cluster requires 3 primary and 3 replica nodes in a minimal configuration to work properly.  
@@ -47,7 +47,7 @@ redis-cli --cluster create HOST1:port HOST2:port HOST3:port HOST4:port HOST5:por
 ```
 Here, we are using the second approach, in which we need to create 6 different hosts with Redis server running on **6379** port.
 
-Here is the minimal template of **redis.conf** file
+Here is the minimal template of **redis.conf** file.
 ```console
 bind 0.0.0.0
 protected-mode no
