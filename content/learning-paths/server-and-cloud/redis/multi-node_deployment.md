@@ -416,7 +416,7 @@ cluster_stats_messages_meet_received:5
 cluster_stats_messages_received:960
 ```
 
-`cluster_state` is ok if the node is able to receive queries.
+**cluster_state** is **ok** if the node is able to receive queries.
 
 The `cluster nodes` command can be sent to any node in the cluster and provides the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
 ```console
@@ -435,7 +435,7 @@ e01e0295b9e1e4129f86c33880f8eb5873c77f05 172.31.23.74:6379@16379 myself,master -
 
 ## Connecting to Redis cluster from local machine
 
-Execute the steps below connect to remote Redis server from local machine.
+Execute the steps below to connect to the remote Redis server from your local machine.
 1. We need to install redis-tools to interact with redis-server.
 ```console
 apt install redis-tools
