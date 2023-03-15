@@ -8,7 +8,7 @@ weight: 6 # 1 is first, 2 is second, etc.
 layout: "learningpathall"
 ---
 
-##  Install Redis on a single AWS Arm based instance 
+##  Install Redis on a Docker container 
 
 You can deploy Redis on a Docker container using Terraform and Ansible. 
 
