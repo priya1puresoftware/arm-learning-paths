@@ -25,7 +25,7 @@ Any computer which has the required tools installed can be used for this section
 You will need an [AWS account](https://portal.aws.amazon.com/billing/signup?nc2=h_ct&src=default&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start) to complete this Learning Path. Create an account if you don't have one.
 
 Before you begin you will also need:
-- An AWS access key ID and secret access key. 
+- An AWS access key ID and secret access key
 - An SSH key pair
 
 The instructions to create the keys are below.
@@ -38,7 +38,7 @@ To generate an access key and secret access key, follow the [steps from the Terr
 
 ### Generate an SSH key-pair
 
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access: 
+Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for AWS EC2 access. 
 
 ```console
 ssh-keygen -f aws_key -t rsa -b 2048 -P ""
@@ -48,9 +48,9 @@ You should now have your AWS access keys and your SSH keys in the current direct
 
 ## Create an AWS EC2 instance using Terraform
 
-Using a text editor, save the code below to in a file called `main.tf`
+Using a text editor, save the code below in a file called `main.tf`.
 
-Scroll down to see the information you need to change in `main.tf`
+Scroll down to see the information you need to change in `main.tf`.
 
 ```console
 provider "aws" {
@@ -121,7 +121,7 @@ The instance type is t4g.small. This an an Arm-based instance and requires an Ar
 
 3. In the `aws_key_pair` section, change the `public_key` value to match your SSH key. Copy and paste the contents of your aws_key.pub file to the `public_key` string. Make sure the string is a single line in the text file.
 
-4. in the `local_file` section, change the `filename` to be the path to your current directory.
+4. In the `local_file` section, change the `filename` to be the path to your current directory.
 
 The hosts file is automatically generated and does not need to be changed, change the path to the location of the hosts file.
 
@@ -179,7 +179,7 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all AWS resources: 
+Run `terraform apply` to apply the execution plan and create all AWS resources. 
 
 ```console
 terraform apply
@@ -249,7 +249,7 @@ Replace `{password}` with your value.
 
 ### Ansible Commands
 
-Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
+Substitute your private key name, and run the playbook using the  `ansible-playbook` command.
 
 ```console
 ansible-playbook playbook.yaml -i hosts --key-file aws_key
@@ -309,7 +309,7 @@ The output will be:
 ubuntu@ip-172-31-38-39:~$ redis-cli -h 172.31.30.40 -p 6379
 172.31.30.40:6379> 
 ```
-3. Authorize Redis with the password set by us in playbook.yaml file
+3. Authorize Redis with the password set by us in playbook.yaml file.
 ```console
 172.31.30.40:6379> ping
 (error) NOAUTH Authentication required.
@@ -318,7 +318,7 @@ OK
 172.31.30.40:6379> ping
 PONG
 ```
-4. Try out commands in the redis-cli
+4. Try out commands in the redis-cli.
 ```console
 172.31.30.40:6379> set name test
 OK
