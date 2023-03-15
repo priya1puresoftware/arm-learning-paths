@@ -1,11 +1,9 @@
 ---
 title: Deploying Redis on Arm
 
-description: Deploy Redis in single node and multi-node configuration
-
 minutes_to_complete: 60   
 
-who_is_this_for: Developers new to Redis
+who_is_this_for: This is an advanced topic for anyone who wants to deploy Redis.
 
 learning_objectives: 
     - Understand Redis deployment configurations
@@ -16,9 +14,10 @@ learning_objectives:
     - Install Redis in a multi-node configuration (sharding)
 
 prerequisites:
-    - Cloud nodes or physical machines
-    - Terraform
-    - Ansible
+    - An Amazon Web Services (AWS) [account](https://aws.amazon.com/)
+    - An Azure portal [account](https://azure.microsoft.com/en-in/get-started/azure-portal)
+    - A Google Cloud [account](https://console.cloud.google.com/?hl=en-au)
+    - A machine with [Terraform](/install-tools/terraform/), [AWS CLI](/install-tools/aws-cli), [Google Cloud CLI](/install-tools/gcloud), [Azure CLI](/install-tools/azure-cli), [AWS IAM authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html), and [Ansible](/install-tools/ansible/) installed
 
 author_primary: Jason Andrews
 ### Tags
@@ -26,12 +25,11 @@ skilllevels: Introductory
 subjects: Databases
 armips:
     - Neoverse
-tools:
-    - Terraform
-    - Ansible
-softwares:
 operatingsystems:
     - Linux
+tools_software_languages:
+    - Terraform
+    - Ansible
 
 ### FIXED, DO NOT MODIFY
 # ================================================================================
