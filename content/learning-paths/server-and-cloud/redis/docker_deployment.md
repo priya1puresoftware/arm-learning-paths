@@ -135,7 +135,7 @@ Using a text editor, save the code below to in a file called `playbook.yaml`. Th
 ```
 Replace `{password}` with your value.
 
-To access the Redis server running inside the Docker container on port `6379`, we need to expose it to any available port on the machine using `-p {port_no_of_machine}:6379` argument. We need to replace `port_no_of_machine}` with its respective value. In our example, we have used port number `6000`.
+To access the Redis server running inside the Docker container on port `6379`, we need to expose it to any available port on the machine using `-p {port_no_of_machine}:6379` argument. We need to replace `{port_no_of_machine}` with its respective value. In our example, we have used port number `6000`.
 
 ### Ansible Commands
 
