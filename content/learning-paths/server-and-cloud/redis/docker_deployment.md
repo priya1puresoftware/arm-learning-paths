@@ -16,7 +16,7 @@ In this topic, you will deploy Redis on a Docker container, and in the next topi
 
 ## Before you begin
 
-You should have the prerequisite tools installed from the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment#create-an-aws-ec2-instance-using-terraform)
+You should have the prerequisite tools installed from the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment#create-an-aws-ec2-instance-using-terraform).
 
 Use the same AWS access key ID and secret access key and the same SSH key pair.
 
@@ -77,7 +77,7 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all AWS resources: 
+Run `terraform apply` to apply the execution plan and create all AWS resources. 
 
 ```console
 terraform apply
@@ -139,7 +139,7 @@ To access the Redis server running inside the Docker container on port `6379`, w
 
 ### Ansible Commands
 
-Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
+Substitute your private key name, and run the playbook using the  `ansible-playbook` command.
 
 ```console
 ansible-playbook playbook.yaml -i hosts --key-file aws_key
@@ -199,7 +199,7 @@ The output will be:
 ubuntu@ip-172-31-38-39:~$ redis-cli -h 172.31.30.40 -p 6379
 172.31.30.40:6379> 
 ```
-3. Authorize Redis with the password set by us in playbook.yaml file
+3. Authorize Redis with the password set by us in playbook.yaml file.
 ```console
 172.31.30.40:6379> ping
 (error) NOAUTH Authentication required.
@@ -208,7 +208,7 @@ OK
 172.31.30.40:6379> ping
 PONG
 ```
-4. Try out commands in the redis-cli
+4. Try out commands in the redis-cli.
 ```console
 172.31.30.40:6379> set name test
 OK
@@ -226,4 +226,4 @@ Run `terraform destroy` to delete all resources created.
 terraform destroy
 ```
 
-Continue the Learning Path to deploy Redis in a multi-node configuration. 
+Continue the Learning Path to deploy Redis in a multi-node configuration.
