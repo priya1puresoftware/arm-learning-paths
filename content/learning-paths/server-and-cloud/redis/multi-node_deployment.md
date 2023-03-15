@@ -10,7 +10,7 @@ layout: "learningpathall"
 
 ##  Install Redis in a multi-node configuration 
 
-You can deploy Redis in a multi-node configuration using Terraform and Ansible. You will create three primary nodes and three replica nodes.
+You can deploy Redis in a multi-node configuration on AWS Graviton processors using Terraform and Ansible. You will create three primary nodes and three replica nodes.
 
 ## Before you begin
 
@@ -20,7 +20,7 @@ Use the same AWS access key ID and secret access key and the same SSH key pair.
 
 ## Create AWS EC2 instances using Terraform
 
-Using a text editor, save the code below to in a file called `main.tf`. We will create a security group that opens inbound port `22`(ssh). Also every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients, for example `6379` plus the port obtained by adding 10000 to the data port, so `16379` in the example.
+Using a text editor, save the code below in a file called `main.tf`. You will create a security group that opens inbound port `22`(ssh). Also every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients, for example `6379` plus the port obtained by adding 10000 to the data port, so `16379` in the example.
 
 Scroll down to see the information you need to change in `main.tf`.
 
@@ -31,7 +31,7 @@ provider "aws" {
   secret_key   = "AXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
 resource "aws_instance" "redis-deployment" {
-  ami = "ami-0bc02c3c09aaee8ea"
+  ami = "ami-0ca2eafa23bc3dd01"
   count = "6"
   instance_type = "t4g.small"
   key_name= "aws_key"
@@ -108,7 +108,7 @@ The instance type is t4g.small. This an an Arm-based instance and requires an Ar
 
 3. In the `aws_key_pair` section, change the `public_key` value to match your SSH key. Copy and paste the contents of your aws_key.pub file to the `public_key` string. Make sure the string is a single line in the text file.
 
-4. in the `local_file` section, change the `filename` to be the path to your current directory.
+4. In the `local_file` section, change the `filename` to be the path to your current directory.
 
 The hosts file is automatically generated and does not need to be changed, change the path to the location of the hosts file.
 
@@ -166,7 +166,7 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all AWS resources: 
+Run `terraform apply` to apply the execution plan and create all AWS resources. 
 
 ```console
 terraform apply
@@ -229,7 +229,7 @@ Using a text editor, save the code below to in a file called `playbook.yaml`. Th
 
 ### Ansible Commands
 
-Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
+Substitute your private key name, and run the playbook using the  `ansible-playbook` command.
 
 ```console
 ansible-playbook playbook.yaml -i hosts --key-file aws_key
@@ -327,7 +327,7 @@ ec2-3-23-96-163.us-east-2.compute.amazonaws.com : ok=6    changed=5    unreachab
 
 ## Create a Redis cluster
 
-After the Redis installation has been completed on all servers, lift the cluster up with the help of this command:
+After the Redis installation has been completed on all servers, lift the cluster up with the help of the following command.
 
 ```console
 redis-cli --cluster create {redis-deployment[0].public_ip}:6379 {redis-deployment[1].public_ip}:6379 {redis-deployment[2].public_ip}:6379 {redis-deployment[3].public_ip}:6379 {redis-deployment[4].public_ip}:6379 {redis-deployment[5].public_ip}:6379 --cluster-replicas 1
@@ -449,7 +449,7 @@ The output will be:
 ubuntu@ip-172-31-38-39:~$ redis-cli -c -h ec2-18-117-150-63.us-east-2.compute.amazonaws.com -p 6379
 ec2-18-117-150-63.us-east-2.compute.amazonaws.com:6379>
 ```
-3. Try out commands in the redis-cli              
+3. Try out commands in the redis-cli.              
 The redis-cli will run in interactive mode. We can connect to any of the nodes, the command will get redirected to primary node.
 ```console
 ec2-18-117-150-63.us-east-2.compute.amazonaws.com:6379> ping
