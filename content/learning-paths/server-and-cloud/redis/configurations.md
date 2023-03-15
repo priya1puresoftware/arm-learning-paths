@@ -11,7 +11,7 @@ layout: "learningpathall"
 ##  About Redis deployment configurations
 
 ###  Introduction to Redis
-Redis, which stands for Remote Dictionary Server, is an open source in-memory data structure store used as a database, cache, message broker, and streaming engine. Redis has a variety of data types, including bitmaps, hyperloglogs, geographic indexes, streams, lists, sets, and sorted sets with range queries.
+Redis, which stands for Remote Dictionary Server, is an open source, in-memory, key-value data store. Redis has a variety of data types, including bitmaps, hyperloglogs, geographic indexes, streams, lists, sets, and sorted sets with range queries.
 
 ### Configuring Redis Server
 We can configure the Redis server using the [redis.conf](https://redis.io/docs/management/config-file/) file. Alternatively, we can configure Redis servers by [passing arguments via the command line](https://redis.io/docs/management/config/#passing-arguments-via-the-command-line) when fewer configuration variables need to be set.
