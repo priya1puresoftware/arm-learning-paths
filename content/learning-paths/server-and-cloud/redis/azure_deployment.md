@@ -34,7 +34,7 @@ The instructions to login to Azure CLI and to create the keys are below.
 
 The installation of Terraform on your Desktop/Laptop needs to communicate with Azure. Thus, Terraform needs to be authenticated.
 
-For authentication, follow the [steps from the Terraform Learning Path](/learning-paths/server-and-cloud/aws/azure/terraform#azure-authentication).
+For authentication, follow the [steps from the Terraform Learning Path](/learning-paths/server-and-cloud/azure/terraform#azure-authentication).
 
 ### Generate an SSH key-pair
 
