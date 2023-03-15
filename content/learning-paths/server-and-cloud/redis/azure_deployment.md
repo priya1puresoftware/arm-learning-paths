@@ -243,9 +243,9 @@ ansible-target1 ansible_connection=ssh ansible_host=${azurerm_linux_virtual_mach
 ```
 Make the changes listed below in `main.tf` to match your account settings.
 
-1. In the `admin_ssh_key` section, change the `public_key` value to match your SSH key. Copy and paste the contents of your azure_key.pub file to the `public_key` string. Make sure the string is a single line in the text file.
+1. In the `admin_ssh_key` section, change the `public_key` value to match your SSH key.
 
-2. in the `local_file` section, change the `filename` to be the path to your current directory.
+2. In the `local_file` section, change the `filename` to be the path to your current directory.
 
 The hosts file is automatically generated and does not need to be changed, change the path to the location of the hosts file.
 
@@ -428,7 +428,7 @@ ansible-target1            : ok=7    changed=6    unreachable=0    failed=0    s
 
 ## Connecting to the Redis server from local machine
 
-Execute the steps below connect to remote Redis server from local machine.
+Execute the steps below to connect to the remote Redis server from your local machine.
 1. We need to install redis-tools to interact with redis-server.
 ```console
 apt install redis-tools
