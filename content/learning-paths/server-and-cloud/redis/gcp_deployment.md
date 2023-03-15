@@ -36,7 +36,7 @@ To obtain user access credentials, follow the [steps from the Terraform Learning
 
 ### Generate an SSH key-pair
 
-Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for Google Cloud access: 
+Generate an SSH key-pair (public key, private key) using `ssh-keygen` to use for Google Cloud access. 
 
 ```console
 ssh-keygen -f gcp_key -t rsa -b 2048 -P ""
@@ -46,9 +46,9 @@ You should now have your SSH keys in the current directory.
 
 ## Create a GCP instance using Terraform
 
-Using a text editor, save the code below to in a file called `main.tf`
+Using a text editor, save the code below in a file called `main.tf`.
 
-Scroll down to see the information you need to change in `main.tf`
+Scroll down to see the information you need to change in `main.tf`.
 ```
 provider "google" {
   project = "{project_id}"
@@ -168,7 +168,7 @@ A long output of resources to be created will be printed.
 
 ### Apply a Terraform execution plan
 
-Run `terraform apply` to apply the execution plan and create all GCP resources: 
+Run `terraform apply` to apply the execution plan and create all GCP resources. 
 
 ```console
 terraform apply
@@ -238,7 +238,7 @@ Replace `{password}` with your value.
 
 ### Ansible Commands
 
-Substitute your private key name, and run the playbook using the  `ansible-playbook` command:
+Substitute your private key name, and run the playbook using the  `ansible-playbook` command.
 
 ```console
 ansible-playbook playbook.yaml -i hosts --key-file gcp_key
@@ -298,7 +298,7 @@ The output will be:
 ubuntu@ip-172-31-38-39:~$ redis-cli -h 34.68.176.131 -p 6379
 34.68.176.131:6379> 
 ```
-3. Authorize Redis with the password set by us in playbook.yaml file
+3. Authorize Redis with the password set by us in playbook.yaml file.
 ```console
 34.68.176.131:6379> ping
 (error) NOAUTH Authentication required.
@@ -307,7 +307,7 @@ OK
 34.68.176.131:6379> ping
 PONG
 ```
-4. Try out commands in the redis-cli
+4. Try out commands in the redis-cli.
 ```console
 34.68.176.131:6379> set name test
 OK
