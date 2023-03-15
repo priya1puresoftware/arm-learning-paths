@@ -191,50 +191,7 @@ Master_public_IP = [
 ## Configure Redis through Ansible
 Install the Redis and the required dependencies. 
 
-Using a text editor, save the code below to in a file called `playbook.yaml`. This is the YAML file for the Ansible playbook. 
-
-```console
----
-- hosts: all
-  become: true
-  become_user: root
-  remote_user: ubuntu
-
-  tasks:
-    - name: Update the Machine and install dependencies
-      shell: |
-             apt-get update -y
-             curl -fsSL "https://packages.redis.io/gpg" | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-             echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" |  tee /etc/apt/sources.list.d/redis.list
-             apt install -y redis-tools redis
-    - name: Create directories
-      file:
-        path: "/home/ubuntu/redis"
-        state: directory
-      become_user: ubuntu
-    - name: Create configuration files
-      copy:
-        dest: "/home/ubuntu/redis/redis.conf"
-        content: |
-          bind 0.0.0.0
-          port 6379
-          protected-mode yes
-          cluster-enabled no
-          daemonize yes
-          appendonly no
-      become_user: ubuntu
-    - name: Stop redis-server
-      shell: service redis-server stop
-    - name: Start redis server with configuration files
-      shell: redis-server redis.conf
-      args:
-        chdir: "/home/ubuntu/redis"
-      become_user: ubuntu
-    - name: Set Authentication password
-      shell: redis-cli -p 6379 CONFIG SET requirepass "{password}"
-      become_user: ubuntu
-```
-Replace `{password}` with your value.
+You can use the same playbook.yaml file used in the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment#configure-redis-through-ansible).
 
 ### Ansible Commands
 
