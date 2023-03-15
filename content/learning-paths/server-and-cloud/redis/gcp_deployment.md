@@ -191,7 +191,7 @@ Master_public_IP = [
 ## Configure Redis through Ansible
 Install the Redis and the required dependencies. 
 
-You can use the same playbook.yaml file used in the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment#configure-redis-through-ansible).
+You can use the same `playbook.yaml` file used in the topic, [Install Redis on a single AWS Arm based instance](/learning-paths/server-and-cloud/redis/aws_deployment#configure-redis-through-ansible).
 
 ### Ansible Commands
 
